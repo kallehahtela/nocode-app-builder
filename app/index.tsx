@@ -1,9 +1,9 @@
 import { View, Text, StyleSheet } from 'react-native';
+import { Redirect } from 'expo-router';
 
 export default function IndexScreen() {
+
     return (
-        <View style={{ flex: 1 }}>
-            <Text>Hello There...</Text>
-        </View>
+        <Redirect href={'auth/SignupScreen'} />
     );
 }
