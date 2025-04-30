@@ -1,5 +1,8 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, Keyboard, TouchableWithoutFeedback } from "react-native";
+import { View, Text, StyleSheet, Keyboard, TouchableWithoutFeedback, TouchableOpacity } from "react-native";
+
+// Navigation
+import { useRouter } from "expo-router";
 
 // Custom Components
 import CustomTextInput from "@app/UI/CustomTextInput";
@@ -13,6 +16,8 @@ export default function SignupScreen() {
     const [birthdate, setBirthdate] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+
+    const router = useRouter(); // Navigation hook
 
     const handleSignup = () => {
         console.log({
@@ -63,10 +68,12 @@ export default function SignupScreen() {
                     placeholder='Confirm Password'
                     secureTextEntry={true}
                 />
-                <CustomButton 
-                    title='Sign Up'
-                    onPress={handleSignup}
-                />
+                <View style={{ marginTop: 20, }}>
+                    <CustomButton 
+                        title='Sign Up'
+                        onPress={handleSignup}
+                    />
+                </View>
                 <View style={styles.socialContainer}>
                     <SocialAuthButton 
                         iconName='logo-apple'
@@ -84,6 +91,15 @@ export default function SignupScreen() {
                         iconColor="#000"
                     />
                 </View>
+                <View style={styles.loginContainer}>
+                        <Text style={styles.loginContainer}>I already have an account?</Text>
+                        <TouchableOpacity
+                            onPress={() => router.navigate("/auth/LoginScreen")}
+                        >
+                            <Text style={styles.loginLink}>Login</Text>
+                        </TouchableOpacity>
+                    </View>
+
             </View>
         </TouchableWithoutFeedback>
     );
@@ -106,5 +122,17 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         gap: 10,
         marginTop: 16,
+        marginBottom: 16,
+    },
+    loginContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    loginLink: {
+        flexDirection: 'row',
+        marginLeft: 5,
+        color: '#007BFF',
+        fontWeight: 'bold',
     },
 });
